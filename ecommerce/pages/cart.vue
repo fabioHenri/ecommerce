@@ -4,7 +4,10 @@
       <nav class="navbar">
         <div class="navbar-brand">
           <NuxtLink to="/">
-            <img src="~/assets/images/logo.jpg" style="width: 100px; height: 50px; object-fit: fill;">
+            <img
+              src="~/assets/images/logo.jpg"
+              style="width: 100px; height: 50px; object-fit: fill"
+            />
           </NuxtLink>
         </div>
       </nav>
@@ -13,23 +16,53 @@
       <h1>Seu Carrinho</h1>
       <div class="cart-box">
         <ul class="cart-box-items">
-          <li v-for="(item, index) in cartItems" :key="item.id" :class="{ 'cart-box-item': true, 'item-divider': index < cartItems.length - 1 }">
+          <li
+            v-for="(item, index) in cartItems"
+            :key="item.id"
+            :class="{
+              'cart-box-item': true,
+              'item-divider': index < cartItems.length - 1,
+            }"
+          >
             <div class="product-info">
-              <img :src="item.image" alt="Imagem do Produto" class="product-image">
+              <img
+                :src="item.image"
+                alt="Imagem do Produto"
+                class="product-image"
+              />
               <div class="item-details">
                 <span class="item-title">{{ item.title }}</span>
-                <span class="item-price">R$ {{ item.price }} x {{ item.quantity }}</span>
+                <span class="item-price"
+                  >R$ {{ item.price }} x {{ item.quantity }}</span
+                >
                 <div class="quantity-remove-buttons">
-                  <button @click="increaseQuantity(item.id)" class="quantity-button">+</button>
-                  <button @click="decreaseQuantity(item.id)" class="quantity-button-decress">-</button>
-                  <button @click="removeFromCart(item.id)" class="remove-button">Remover</button>
+                  <button
+                    @click="increaseQuantity(item.id)"
+                    class="quantity-button"
+                  >
+                    +
+                  </button>
+                  <button
+                    @click="decreaseQuantity(item.id)"
+                    class="quantity-button-decress"
+                  >
+                    -
+                  </button>
+                  <button
+                    @click="removeFromCart(item.id)"
+                    class="remove-button"
+                  >
+                    Remover
+                  </button>
                 </div>
               </div>
             </div>
           </li>
         </ul>
       </div>
-      <p v-if="validCartItems.length > 0" class="total">Total: R$ {{ cartTotal.toFixed(2) }}</p>
+      <p v-if="validCartItems.length > 0" class="total">
+        Total: R$ {{ cartTotal.toFixed(2) }}
+      </p>
       <p v-else>Seu carrinho está vazio ou contém produtos inválidos.</p>
       <NuxtLink to="/" class="continue-shopping">Continuar Comprando</NuxtLink>
       <div v-if="cartNotification.show" class="modal">
@@ -49,26 +82,31 @@ export default {
       return this.$store.getters.cartItems;
     },
     validCartItems() {
-      return this.cartItems.filter(item => item.id && item.title && item.price);
+      return this.cartItems.filter(
+        (item) => item.id && item.title && item.price
+      );
     },
     cartTotal() {
-      return this.validCartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+      return this.validCartItems.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+      );
     },
     cartNotification() {
       return this.$store.state.cartNotification;
-    }
+    },
   },
   methods: {
     removeFromCart(productId) {
-      this.$store.commit('removeFromCart', productId);
+      this.$store.commit("removeFromCart", productId);
     },
     increaseQuantity(productId) {
-      this.$store.commit('increaseQuantity', productId);
+      this.$store.commit("increaseQuantity", productId);
     },
     decreaseQuantity(productId) {
-      this.$store.commit('decreaseQuantity', productId);
-    }
-  }
+      this.$store.commit("decreaseQuantity", productId);
+    },
+  },
 };
 </script>
 
@@ -87,7 +125,7 @@ export default {
 .cart-box {
   background-color: #f2f2f2;
   padding: 10px;
-  margin: 10px;
+  margin: 100px;
   max-height: 500px;
   overflow-y: auto;
 }
@@ -119,7 +157,7 @@ export default {
 }
 
 body {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: "Bebas Neue", sans-serif;
 }
 
 h1 {
@@ -149,7 +187,7 @@ h1 {
 }
 
 .quantity-button {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   border: none;
   padding: 5px 10px;
@@ -235,21 +273,21 @@ h1 {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .product-image {
     margin-right: 0;
     margin-bottom: 10px;
   }
-  
+
   .item-details {
     margin-right: 0;
   }
-  
+
   .quantity-remove-buttons {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .quantity-button,
   .quantity-button-decress,
   .remove-button {
