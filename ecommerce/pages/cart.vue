@@ -125,7 +125,7 @@ export default {
 .cart-box {
   background-color: #f2f2f2;
   padding: 10px;
-  margin: 100px;
+  margin: 10px;
   max-height: 500px;
   overflow-y: auto;
 }
